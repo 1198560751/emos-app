@@ -1,0 +1,113 @@
+server:
+  tomcat:
+    # 编码
+    uri-encoding: utf-8
+    threads:
+      # 最大线程数
+      max: 200
+      # 最小线程数
+      min-spare: 30
+    # 超时时间
+    connection-timeout: 5000ms
+  # 端口
+  port: 8080
+  servlet:
+    # servlet地址
+    context-path: /emos-wx-api
+
+# 配置MySQL数据源
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/emos?useUnicode=true&characterEncoding=utf8&serverTimezoneGMT%2B8&useSSL=true&rewriteBatchedStatements=true
+      username: root
+      password: 123
+      # 数据库初始连接数量
+      initial-size: 8
+      # 数据池最大链接数量
+      max-active: 16
+      # 数据库最小链接数量
+      min-idle: 8
+      # 数据库超时最大等待时间
+      max-wait: 60000
+      test-on-borrow: false
+      test-on-return: false
+      # 在空闲时间检测链接是否正常
+      test-while-idle: true
+  # redis
+  redis:
+    database: 0
+    host: localhost
+    port: 6379
+    password: abc123456
+    # redis 数据池连接池
+    jedis:
+      pool:
+        # 最大上限
+        max-active: 1000
+        # 链接等待超时时间
+        max-wait: -1ms
+        # 最大空闲连接数
+        max-idle: 16
+        # 最小空闲连接数
+        min-idle: 8
+  # Mongodb
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: emos
+      authentication-database: admin
+      username: admin
+      password: abc123456
+  mvc:
+    # Failed to start bean ‘documentationPluginsBootstrapper’; nested exception is java.lang.NullPointerException
+    # 原因分析: Springboot2.6以后将SpringMVC 默认路径匹配策略从AntPathMatcher 更改为PathPatternParser，导致出错
+    # 解决方案: 把路径匹配策略修改为原来的AntPathMatcher即可
+    # 解决swagger版本不兼容问题
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
+# mybatis配置信息
+mybatis:
+  # mapper路径
+  mapper-locations: classpath*:mapper/*.xml
+  # 实体类别名映射
+  type-aliases-package: com.example.emos.wx.db.pojo
+  # 配置信息
+  configuration:
+    # mybatis 输出日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 下划线转驼峰
+    map-underscore-to-camel-case: true
+
+# 配置lombok日志输出级别
+logging:
+  # 日志输出级别
+  level:
+    # 一般的日志级别未info
+    root: info
+    # 在dao里面为warn
+    com.example.emos.wx.db.dao: warn
+  # 日志格式
+  pattern:
+    console: "%d{HH:mm:ss}  %-5level %msg%n"
+
+# jwt 密钥以及过期时间
+emos:
+  jwt:
+    secret: abc123456
+    # 过期时间 (天)
+    expire: 5
+    # 缓存过期时间 (天)
+    cache-expire: 10
+
+# 微信小程序id和密钥
+wx:
+  app-id: wx3e825563cd26890f
+  app-secret: ef690383452713ac8c4b3a0cf4e54b2f
+
+
+

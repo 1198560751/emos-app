@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.emos.wx.db.dao.TbMeetingDao">
+
+    <resultMap type="com.example.emos.wx.db.pojo.TbMeeting" id="TbMeetingMap">
+        <result property="id" column="id" jdbcType="VARCHAR"/>
+        <result property="uuid" column="uuid" jdbcType="VARCHAR"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="creatorId" column="creator_id" jdbcType="INTEGER"/>
+        <result property="date" column="date" jdbcType="TIMESTAMP"/>
+        <result property="place" column="place" jdbcType="VARCHAR"/>
+        <result property="start" column="start" jdbcType="VARCHAR"/>
+        <result property="end" column="end" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="members" column="members" jdbcType="VARCHAR"/>
+        <result property="desc" column="desc" jdbcType="VARCHAR"/>
+        <result property="instanceId" column="instance_id" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbMeetingMap">
+        select
+          id, uuid, title, creator_id, date, place, start, end, type, members, desc, instance_id, status, create_time
+        from tb_meeting
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TbMeetingMap">
+        select
+          id, uuid, title, creator_id, date, place, start, end, type, members, desc, instance_id, status, create_time
+        from tb_meeting
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="creatorId != null">
+                and creator_id = #{creatorId}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="place != null and place != ''">
+                and place = #{place}
+            </if>
+            <if test="start != null">
+                and start = #{start}
+            </if>
+            <if test="end != null">
+                and end = #{end}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="members != null">
+                and members = #{members}
+            </if>
+            <if test="desc != null and desc != ''">
+                and desc = #{desc}
+            </if>
+            <if test="instanceId != null and instanceId != ''">
+                and instance_id = #{instanceId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_meeting
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="uuid != null and uuid != ''">
+                and uuid = #{uuid}
+            </if>
+            <if test="title != null and title != ''">
+                and title = #{title}
+            </if>
+            <if test="creatorId != null">
+                and creator_id = #{creatorId}
+            </if>
+            <if test="date != null">
+                and date = #{date}
+            </if>
+            <if test="place != null and place != ''">
+                and place = #{place}
+            </if>
+            <if test="start != null">
+                and start = #{start}
+            </if>
+            <if test="end != null">
+                and end = #{end}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+            <if test="members != null">
+                and members = #{members}
+            </if>
+            <if test="desc != null and desc != ''">
+                and desc = #{desc}
+            </if>
+            <if test="instanceId != null and instanceId != ''">
+                and instance_id = #{instanceId}
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_meeting(uuid, title, creator_id, date, place, start, end, type, members, desc, instance_id, status, create_time)
+        values (#{uuid}, #{title}, #{creatorId}, #{date}, #{place}, #{start}, #{end}, #{type}, #{members}, #{desc}, #{instanceId}, #{status}, #{createTime})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_meeting(uuid, title, creator_id, date, place, start, end, type, members, desc, instance_id, status, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.uuid}, #{entity.title}, #{entity.creatorId}, #{entity.date}, #{entity.place}, #{entity.start}, #{entity.end}, #{entity.type}, #{entity.members}, #{entity.desc}, #{entity.instanceId}, #{entity.status}, #{entity.createTime})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_meeting(uuid, title, creator_id, date, place, start, end, type, members, desc, instance_id, status, create_time)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.uuid}, #{entity.title}, #{entity.creatorId}, #{entity.date}, #{entity.place}, #{entity.start}, #{entity.end}, #{entity.type}, #{entity.members}, #{entity.desc}, #{entity.instanceId}, #{entity.status}, #{entity.createTime})
+        </foreach>
+        on duplicate key update
+        uuid = values(uuid),
+        title = values(title),
+        creator_id = values(creator_id),
+        date = values(date),
+        place = values(place),
+        start = values(start),
+        end = values(end),
+        type = values(type),
+        members = values(members),
+        desc = values(desc),
+        instance_id = values(instance_id),
+        status = values(status),
+        create_time = values(create_time)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_meeting
+        <set>
+            <if test="uuid != null and uuid != ''">
+                uuid = #{uuid},
+            </if>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="creatorId != null">
+                creator_id = #{creatorId},
+            </if>
+            <if test="date != null">
+                date = #{date},
+            </if>
+            <if test="place != null and place != ''">
+                place = #{place},
+            </if>
+            <if test="start != null">
+                start = #{start},
+            </if>
+            <if test="end != null">
+                end = #{end},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+            <if test="members != null">
+                members = #{members},
+            </if>
+            <if test="desc != null and desc != ''">
+                desc = #{desc},
+            </if>
+            <if test="instanceId != null and instanceId != ''">
+                instance_id = #{instanceId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tb_meeting where id = #{id}
+    </delete>
+
+</mapper>
+

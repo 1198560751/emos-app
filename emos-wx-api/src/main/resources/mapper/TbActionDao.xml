@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.emos.wx.db.dao.TbActionDao">
+
+    <resultMap type="com.example.emos.wx.db.pojo.TbAction" id="TbActionMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="actionCode" column="action_code" jdbcType="VARCHAR"/>
+        <result property="actionName" column="action_name" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="TbActionMap">
+        select
+          id, action_code, action_name
+        from tb_action
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="TbActionMap">
+        select
+          id, action_code, action_name
+        from tb_action
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="actionCode != null and actionCode != ''">
+                and action_code = #{actionCode}
+            </if>
+            <if test="actionName != null and actionName != ''">
+                and action_name = #{actionName}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from tb_action
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="actionCode != null and actionCode != ''">
+                and action_code = #{actionCode}
+            </if>
+            <if test="actionName != null and actionName != ''">
+                and action_name = #{actionName}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_action(action_code, action_name)
+        values (#{actionCode}, #{actionName})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_action(action_code, action_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+        (#{entity.actionCode}, #{entity.actionName})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into tb_action(action_code, action_name)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.actionCode}, #{entity.actionName})
+        </foreach>
+        on duplicate key update
+        action_code = values(action_code),
+        action_name = values(action_name)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update tb_action
+        <set>
+            <if test="actionCode != null and actionCode != ''">
+                action_code = #{actionCode},
+            </if>
+            <if test="actionName != null and actionName != ''">
+                action_name = #{actionName},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete from tb_action where id = #{id}
+    </delete>
+
+</mapper>
+

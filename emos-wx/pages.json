@@ -1,0 +1,105 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页
+		{
+			"path": "pages/login/login",
+			"style": {
+				// 上方标题文字
+				"navigationBarTitleText": "欢迎使用EMOS系统",
+				//下拉刷新的支持
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationBarTitleText": "新用户注册",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/meeting_list/meeting_list",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/document/document",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/contacts/contacts",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/mine/mine",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+		}, {
+			"path": "pages/checkin/checkin",
+			"style": {
+				"navigationBarTitleText": "",
+				"enablePullDownRefresh": false
+			}
+
+		}
+	],
+	// 全局样式
+	"globalStyle": {
+		// 定义全局标题颜色
+		"navigationBarTextStyle": "white",
+		// 定义全局标题文字
+		"navigationBarTitleText": "EMOS系统",
+		// 全局标题背景色
+		"navigationBarBackgroundColor": "#3474FF",
+		// 页面背景色
+		"backgroundColor": "#EEEEF4"
+	},
+	//导航栏
+	"tabBar": {
+		"color": "#666", //默认颜色
+		"selectedColor": "#3474FF", //选中颜色
+		"list": [{
+				"text": "首页",
+				"pagePath": "pages/index/index", //跳转地址
+				"iconPath": "static/bar-1.png", //图标
+				"selectedIconPath": "static/bar-1-active.png" //选中图标
+			},
+			{
+				"text": "会议",
+				"pagePath": "pages/meeting_list/meeting_list", //跳转地址
+				"iconPath": "static/bar-2.png", //图标
+				"selectedIconPath": "static/bar-2-active.png" //选中图标
+			},
+			{
+				"text": "文档",
+				"pagePath": "pages/document/document", //跳转地址
+				"iconPath": "static/bar-3.png", //图标
+				"selectedIconPath": "static/bar-3-active.png" //选中图标
+			},
+			{
+				"text": "通讯录",
+				"pagePath": "pages/contacts/contacts", //跳转地址
+				"iconPath": "static/bar-4.png", //图标
+				"selectedIconPath": "static/bar-4-active.png" //选中图标
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/mine/mine", //跳转地址
+				"iconPath": "static/bar-5.png", //图标
+				"selectedIconPath": "static/bar-5-active.png" //选中图标
+			}
+		]
+	}
+}

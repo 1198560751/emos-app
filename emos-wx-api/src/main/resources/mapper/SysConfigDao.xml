@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.emos.wx.db.dao.SysConfigDao">
+
+    <resultMap type="com.example.emos.wx.db.pojo.SysConfig" id="SysConfigMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="paramKey" column="param_key" jdbcType="VARCHAR"/>
+        <result property="paramValue" column="param_value" jdbcType="VARCHAR"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="remark" column="remark" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询所有考勤字段-->
+    <select id="selectAllParam" resultType="com.example.emos.wx.db.pojo.SysConfig">
+        SELECT param_key, param_value
+        FROM sys_config
+        WHERE status = 1
+    </select>
+
+
+</mapper>
+

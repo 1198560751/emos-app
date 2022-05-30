@@ -1,0 +1,40 @@
+@import url("../../style.less");
+
+.logo{
+	width: 70%;
+	display: block;
+	margin: 0 auto;
+	margin-top: 80rpx;
+}
+
+.register-container{
+	width: 70%;
+	margin-top: 150rpx;
+	margin: 0 auto;
+	.register-code{
+		border: solid 1rpx #e0e0e0;
+		font-size: 34rpx;
+		color: @font-color;
+		text-align: center;
+		background-color: #f5f5f5;
+		border-radius: 10rpx;
+		margin-top: 100rpx;
+		margin-bottom: 30rpx;
+		height: 80rpx;
+		padding: 0 20rpx;
+	}
+	.register-desc{
+		color:@desc-color;
+		font-size: 28rpx;
+		line-height: 1.5;
+		margin-bottom: 80rpx;
+		margin-top: 50rpx;
+	}
+	.register-bth{
+		background-color: @background-color;
+		color: #FFF;
+		&:active{
+			background-color: @background-color-active;
+		}
+	}
+}

@@ -17,5 +17,10 @@ public interface TbCheckinDao {
 
     Integer haveCheckin(HashMap<Object, Object> param);
 
+    /**
+     * 插入签到记录
+     */
+    void insert(TbCheckin tbCheckin);
+
 }
 

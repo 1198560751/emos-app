@@ -15,9 +15,8 @@ server:
     # servlet地址
     context-path: /emos-wx-api
 
-# 配置MySQL数据源
 spring:
-  datasource:
+  datasource: # 配置MySQL数据源
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
@@ -42,8 +41,7 @@ spring:
     host: localhost
     port: 6379
     password: abc123456
-    # redis 数据池连接池
-    jedis:
+    jedis: # redis 数据池连接池
       pool:
         # 最大上限
         max-active: 1000
@@ -53,8 +51,7 @@ spring:
         max-idle: 16
         # 最小空闲连接数
         min-idle: 8
-  # Mongodb
-  data:
+  data: # Mongodb
     mongodb:
       host: localhost
       port: 27017
@@ -62,6 +59,13 @@ spring:
       authentication-database: admin
       username: admin
       password: abc123456
+  mail: #邮箱配置
+    default-encoding: UTF-8
+    host: smtp@163.com # 网易邮箱
+    username: Z1742210194@163.com #账号
+    password: Z1742210194z   # 密码
+
+
   mvc:
     # Failed to start bean ‘documentationPluginsBootstrapper’; nested exception is java.lang.NullPointerException
     # 原因分析: Springboot2.6以后将SpringMVC 默认路径匹配策略从AntPathMatcher 更改为PathPatternParser，导致出错
@@ -95,14 +99,21 @@ logging:
   pattern:
     console: "%d{HH:mm:ss}  %-5level %msg%n"
 
-# jwt 密钥以及过期时间
-emos:
+emos: # jwt 密钥以及过期时间
   jwt:
     secret: abc123456
-    # 过期时间 (天)
-    expire: 5
-    # 缓存过期时间 (天)
-    cache-expire: 10
+    expire: 5   # 过期时间 (天)
+    cache-expire: 10  # 缓存过期时间 (天)
+    # TODO:emos人脸识别请求路径,后期优化腾讯云 人脸识别
+  face:
+    createFaceModelUrl: http://192.168.0.109:3000/create_face_model  # 创建人脸识别请求路径
+    checkinUrl: http://192.168.0.109:3000/checkin                    # 检查人脸识别请求路径
+  email: #emil常用邮件地址 如老板  hr 等
+    system: Z1742210194@163.com
+    hr: s19327502401@163.com
+  image-folder: F:/emos/image  #存放图片的路径
+
+
 
 # 微信小程序id和密钥
 wx:

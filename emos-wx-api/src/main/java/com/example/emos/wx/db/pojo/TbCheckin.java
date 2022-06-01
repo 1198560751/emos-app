@@ -42,7 +42,7 @@ public class TbCheckin implements Serializable {
     /**
      * 考勤结果
      */
-    private Integer status;
+    private Byte status;
     /**
      * 风险等级
      */
@@ -50,7 +50,7 @@ public class TbCheckin implements Serializable {
     /**
      * 签到日期
      */
-    private Date date;
+    private String date;
     /**
      * 签到时间
      */
@@ -113,11 +113,11 @@ public class TbCheckin implements Serializable {
         this.district = district;
     }
 
-    public Integer getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 
@@ -129,11 +129,11 @@ public class TbCheckin implements Serializable {
         this.risk = risk;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
